@@ -12,5 +12,6 @@ sleep 10
 nohup devilspie2 --folder ~/scripts/arrange_windows/ > /dev/null 2>&1 &
 sleep 20
 pkill devilspie2
-mpsyt /rain sounds, shuffle, 1-
+rm /home/jarrod/.config/mps-youtube/cache_py_3.7.3 
+nohup mpsyt /rain sounds, shuffle, 1-
 
