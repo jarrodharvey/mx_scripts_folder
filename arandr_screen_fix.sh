@@ -10,6 +10,7 @@ fluxbox-remote restart
 nohup flatpak run com.getferdi.Ferdi > /dev/null 2>&1 &
 nohup firefox --new-window https://to-do.office.com/tasks/ > /dev/null 2>&1 &
 nohup firefox --new-window https://app.simplenote.com/ > /dev/null 2>&1 &
+nohup thunderbird > /dev/null 2>&1 &
 sleep 10
 nohup devilspie2 --folder ~/scripts/arrange_windows/ > /dev/null 2>&1 &
 sleep 20
