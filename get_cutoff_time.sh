@@ -7,7 +7,7 @@ read alarm_time
 
 if [ $alarm_time == "N" ]
 then
-	seconds_to_remove=$RANDOM
+	seconds_to_remove=$(($RANDOM * 2 / 3))
 	cutoff=$(date -d "2:00 AM tomorrow -$seconds_to_remove seconds" +'%r')
 else
 	bedtime=$(date -d "$alarm_time tomorrow -8 hours" +'%r')	
