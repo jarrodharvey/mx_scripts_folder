@@ -15,4 +15,10 @@ else
 	cutoff=$(date -d "$bedtime today -$seconds_to_remove seconds" +'%r')
 fi
 
-echo Tonight cutoff is $cutoff - set your alarm!
+if [ $( date -d "$cutoff" '+%s' ) -lt $( date '+%s' ) ]
+then
+	cutoff=$(date -d "today + 1 hour" +'%r')
+	echo Set your alarm for the cutoff time of $cutoff
+else
+	echo Tonight cutoff is $cutoff - set your alarm!
+fi
