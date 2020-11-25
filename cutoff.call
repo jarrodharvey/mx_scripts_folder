@@ -1,0 +1,9 @@
+channel: Local/42@originate-skipvm
+application: Playback
+data: steamed_hams
+maxretries: 7
+retrytime: 42
+waittime: 42
+callerid: Cutoff - Time to relax!
+AlwaysDelete: Yes
+Archive: Yes
