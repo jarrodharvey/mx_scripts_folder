@@ -1,5 +1,7 @@
 #!/bin/bash
 
+ssh -q root@raspbx.local [[ -f /var/spool/asterisk/outgoing/cutoff.call ]] && echo Cutoff tonight is $( date -d @$( ssh root@raspbx.local stat -c %Y /var/spool/asterisk/outgoing/cutoff.call ) '+%r' ) && exit 0
+
 echo What time is your alarm set for tomorrow morning?
 echo If you do not have an alarm set for tomorrow, type N
 
@@ -29,3 +31,5 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 # Modified time in asterisk is the time that the call gets made
 touch -d "$cutoff" $DIR/cutoff.call
 
+scp -pq $DIR/cutoff.call root@raspbx.local:/tmp/cutoff.call
+ssh root@raspbx.local "mv /tmp/cutoff.call /var/spool/asterisk/outgoing/"
