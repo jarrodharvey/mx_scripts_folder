@@ -17,12 +17,10 @@ else
 	cutoff=$(date -d "$bedtime today -$seconds_to_remove seconds")
 fi
 
+# I will want to do SOME work today...
 if [ $( date -d "$cutoff" '+%s' ) -lt $( date '+%s' ) ]
 then
 	cutoff=$(date -d "today + 1 hour")
-	echo Set your alarm for the cutoff time of $( date -d "$cutoff" '+%r' )
-else
-	echo Tonight cutoff is $( date -d "$cutoff" '+%r' ) - set your alarm!
 fi
 
 # The script's directory. cutoff.call (the asterisk callfile) MUST be in the same dir as the script.
@@ -33,3 +31,5 @@ touch -d "$cutoff" $DIR/cutoff.call
 
 scp -pq $DIR/cutoff.call root@raspbx.local:/tmp/cutoff.call
 ssh root@raspbx.local "mv /tmp/cutoff.call /var/spool/asterisk/outgoing/"
+
+echo Tonight cutoff is $( date -d "$cutoff" '+%r' ) - an alarm has been set in asterisk to call your phone.
