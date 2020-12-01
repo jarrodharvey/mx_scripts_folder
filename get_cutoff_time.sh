@@ -12,7 +12,7 @@ then
 	seconds_to_remove=$(($RANDOM * 2 / 3))
 	cutoff=$(date -d "2:00 AM tomorrow -$seconds_to_remove seconds")
 else
-	bedtime=$(date -d "$alarm_time tomorrow -8 hours")	
+	bedtime=$(date -d "$alarm_time tomorrow -8 hours -30 minutes")	
 	seconds_to_remove=$(expr $RANDOM / 3)	
 	cutoff=$(date -d "$bedtime today -$seconds_to_remove seconds")
 fi
