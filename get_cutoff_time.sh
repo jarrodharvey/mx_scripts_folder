@@ -48,4 +48,4 @@ touch -d "$cutoff" $DIR/cutoff.call
 scp -pq $DIR/cutoff.call root@raspbx.local:/tmp/cutoff.call
 ssh root@raspbx.local "mv /tmp/cutoff.call /var/spool/asterisk/outgoing/"
 
-echo Tonight cutoff is $( date -d "$cutoff" '+%r' ) - an alarm has been set in asterisk to call your phone.
+echo Tonight cutoff is $( date -d "$cutoff" '+%r' ) - you will receive a phone call at this time to remind you.
