@@ -24,7 +24,7 @@ read alarm_time
 if [ $alarm_time == "N" ]
 then
 	seconds_to_remove=$(($RANDOM * 2 / $energy_level))
-	cutoff=$(date -d "10:00 PM tomorrow + $energy_level hours -$seconds_to_remove seconds")
+	cutoff=$(date -d "10:00 PM today + $energy_level hours -$seconds_to_remove seconds")
 else
 	let bedtime_modifier="($energy_level - 2) * 30" 
 	bedtime=$(date -d "$alarm_time tomorrow -9 hours + $bedtime_modifier minutes")	
