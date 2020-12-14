@@ -2,6 +2,13 @@
 
 ssh -q root@raspbx.local [[ -f /var/spool/asterisk/outgoing/cutoff.call ]] && echo Cutoff tonight is $( date -d @$( ssh root@raspbx.local stat -c %Y /var/spool/asterisk/outgoing/cutoff.call ) '+%r' ) && exit 0
 
+# 1 in 10 chance of just getting the day/night off to chill
+if [ $RANDOM -gt 29490 ]
+then
+	echo Take the rest of the day/night off - no cutoff tonight.
+	exit 0
+fi
+
 echo What are your current energy levels?
 echo 1: I am exhausted and could not possibly do more work tonight!
 echo 2: I have less energy than normal.
