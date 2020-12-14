@@ -42,7 +42,6 @@ fi
 # If yesterday's cutoff was after 11PM, subtract one hour from tonight's to give yourself a break
 if [[ $( date -d @$( ssh root@raspbx.local stat -c %Y /var/spool/asterisk/outgoing_done/cutoff.call ) '+%s' ) -gt $( date -d "11:00 PM yesterday" '+%s' ) ]] 
 then
-	echo You had a late night last night, so I will go a little easier tonight.
 	cutoff=$( date -d "$cutoff - 1 hour" )
 fi
 
