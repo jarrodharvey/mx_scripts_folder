@@ -5,7 +5,8 @@ ssh -q root@raspbx.local [[ -f /var/spool/asterisk/outgoing/cutoff.call ]] && ec
 # 1 in 10 chance of just getting the day/night off to chill
 if [ $RANDOM -gt 29490 ]
 then
-	echo Take the rest of the day/night off - no cutoff tonight.
+	echo Make a plan to catch up with friends/family at some point in the future.
+	echo Once that's done, take the rest of the day/night off - no cutoff tonight.
 	exit 0
 fi
 
