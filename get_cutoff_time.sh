@@ -2,11 +2,16 @@
 
 ssh -q root@raspbx.local [[ -f /var/spool/asterisk/outgoing/cutoff.call ]] && echo Cutoff tonight is $( date -d @$( ssh root@raspbx.local stat -c %Y /var/spool/asterisk/outgoing/cutoff.call ) '+%r' ) && exit 0
 
+# The script's directory. cutoff.call, the asterisk callfile, MUST be in the same dir as the script.
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
 # 1 in 10 chance of just getting the day/night off to chill
 if [ $RANDOM -gt 29490 ]
 then
 	echo Make a plan to catch up with friends/family at some point in the future.
 	echo Once thats done, take the rest of the day/night off - no cutoff tonight.
+	# Evidence that I ran this today
+	date +%s > day_off_token.txt
 	exit 0
 fi
 
@@ -53,8 +58,6 @@ then
 	cutoff=$(date -d "today + $minutes_to_work minutes")
 fi
 
-# The script's directory. cutoff.call, the asterisk callfile, MUST be in the same dir as the script.
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 # Modified time in asterisk is the time that the call gets made
 touch -d "$cutoff" $DIR/cutoff.call
