@@ -3,7 +3,7 @@
 ssh -q root@raspbx.local [[ -f /var/spool/asterisk/outgoing/cutoff.call ]] && echo Cutoff tonight is $( date -d @$( ssh root@raspbx.local stat -c %Y /var/spool/asterisk/outgoing/cutoff.call ) '+%r' ) && exit 0
 
 # The script's directory. cutoff.call, the asterisk callfile, MUST be in the same dir as the script.
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+DIR=$( cd $( dirname ${BASH_SOURCE[0]} ) >/dev/null 2>&1 && pwd )
 
 # 1 in 10 chance of just getting the day/night off to chill
 if [ $RANDOM -gt 29490 ]
@@ -26,6 +26,7 @@ read energy_level
 if [ $energy_level = 1 ]
 then
 	echo Whoa! You get the rest of the night off!
+	echo BUUUUUUT since you are really that tired - no Pokemon! Anything else but that.
 	exit 0
 fi
 

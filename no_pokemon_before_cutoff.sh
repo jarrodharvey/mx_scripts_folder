@@ -13,6 +13,8 @@ fi
 # The script's directory
 DIR=$( cd $( dirname ${BASH_SOURCE[0]} ) >/dev/null 2>&1 && pwd )
 
+current_unix_epoch_time=$( date '+%s' )
+
 # Get the timestamp from the cutoff.call file in /var/spool/asterisk/outgoing_done/cutoff.call
 # Remember that outgoing_done only stores COMPLETED calls (previous cutoffs) and
 # it does not store pending calls!!!!
@@ -37,10 +39,11 @@ if [[ ($previous_callfile_timestamp > $day_start) && ($previous_callfile_timesta
 fi
 
 # If the timestamp is less than six hours in the past then exit the script
-six_hours_past_cutoff=$( date -d "$previous_callfile_timestamp + 6 hours" ) 
+six_hours_past_cutoff=$( date -d "$previous_callfile_timestamp + 6 hours" '+%s' ) 
 # As our imaginary cutoff was at 1AM, then this means that six_hours_past_cutoff
-# is 7AM. 2AM (the current time) is before 7AM, so the script will cleanly exit here
-if [[ ( $(date) < $six_hours_past_cutoff) ]]; then
+# is 7AM. 2AM the current time is before 7AM, so the script will cleanly exit here
+echo Six hours past cutoff: $six_hours_past_cutoff
+if (( current_unix_epoch_time <= six_hours_past_cutoff  )); then
 	echo Cutoff was $previous_callfile_timestamp and this was less than six hours ago
 	echo You are free! 
 	exit 0
@@ -52,9 +55,9 @@ fi
 # This means that fifteen_hours_after_token becomes 7AM
 tokenvalue=$( cat $DIR/day_off_token.txt )
 tokenvalue=$( date -d @"$tokenvalue" )
-fifteen_hours_after_token=$( date -d "$tokenvalue + 15 hours")
+fifteen_hours_after_token=$( date -d "$tokenvalue + 15 hours" '+%s' )
 # So if the current time is 10PM, you will be good still until 7AM
-if [[ ( $(date) < $fifteen_hours_after_token ) ]]; then
+if (( current_unix_epoch_time <= fifteen_hours_after_token  )); then
 	echo You have the day off!
 	exit 0
 fi
