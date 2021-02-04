@@ -1104,4 +1104,13 @@ Items shuffled                                                            [1/25>
                                                                      1 of 20
     Soothing Rain Sounds Falling Through the Trees in Glastonbury [10:00:01]
 ]2;Soothing Rain Sounds Falling Through the Trees in Glastonbury | Calming Sleep Sounds for Relaxing - mpsyt Fetched video info                                                              Getting content length                                                          SXBdDpNfocI; webm 160k; 539 Mb                                                 MPRIS process exited of crashed.
- error: retrying                                                                 SXBdDpNfocI; webm 160k; 539 Mb                                                  error: retrying                                                                 SXBdDpNfocI; webm 160k; 539 Mb                                                  error: retrying                                                                
+ error: retrying                                                                 SXBdDpNfocI; webm 160k; 539 Mb                                                  error: retrying                                                                 SXBdDpNfocI; webm 160k; 539 Mb                                                  error: retrying                                                                Using PPAPI flash.
+[29952:29952:0203/231508.815179:ERROR:sandbox_linux.cc(374)] InitializeSandbox() called with multiple threads in process gpu-process.
+libpng warning: iCCP: known incorrect sRGB profile
+[29912:29912:0203/231515.187429:ERROR:zygote_communication_linux.cc(276)] Failed to send GetTerminationStatus message to zygote
+[29912:29936:0203/231515.206917:ERROR:zygote_communication_linux.cc(276)] Failed to send GetTerminationStatus message to zygote
+[29912:29912:0203/231515.218552:ERROR:zygote_communication_linux.cc(276)] Failed to send GetTerminationStatus message to zygote
+[29912:29912:0203/231515.221129:ERROR:zygote_communication_linux.cc(276)] Failed to send GetTerminationStatus message to zygote
+[29912:29912:0203/231515.224847:ERROR:zygote_communication_linux.cc(276)] Failed to send GetTerminationStatus message to zygote
+[29912:29912:0203/231515.232450:ERROR:zygote_communication_linux.cc(276)] Failed to send GetTerminationStatus message to zygote
+[29912:29912:0203/231515.234758:ERROR:network_service_instance_impl.cc(286)] Network service crashed, restarting service.
