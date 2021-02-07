@@ -30,21 +30,22 @@ previous_callfile_timestamp=$( date -d @$( ssh root@raspbx.local stat -c %Y /var
 # In our example,
 # as the timestamp was at 1AM and it is currently 2AM, do NOT exit the script here
 # The reason the script won't exit here is because it is still before 6AM (day_start)
-day_start=$( date -d "6:00 AM today" )
-day_end=$( date -d "11:59 PM today" )
-if [[ ($previous_callfile_timestamp > $day_start) && ($previous_callfile_timestamp < $day_end) ]]; then
+day_start=$( date -d "6:00 AM today" '+%s' )
+day_end=$( date -d "11:59 PM today" '+%s'  )
+previous_callfile_timestamp_unix_epoch=$( date -d "$previous_callfile_timestamp" '+%s' )
+if [[ (  $previous_callfile_timestamp_unix_epoch > $day_start) && ( $previous_callfile_timestamp_unix_epoch < $day_end) ]]; then
 	echo Cutoff was $previous_callfile_timestamp and this time is after 6AM today...
 	echo You are free! 
 	exit 0
 fi
 
 # If the timestamp is less than six hours in the past then exit the script
-six_hours_past_cutoff=$( date -d "$previous_callfile_timestamp + 6 hours" '+%s' ) 
+twelve_hours_past_cutoff=$( date -d "$previous_callfile_timestamp + 12 hours" '+%s' ) 
 # As our imaginary cutoff was at 1AM, then this means that six_hours_past_cutoff
 # is 7AM. 2AM the current time is before 7AM, so the script will cleanly exit here
-echo Six hours past cutoff: $six_hours_past_cutoff
-if (( current_unix_epoch_time <= six_hours_past_cutoff  )); then
-	echo Cutoff was $previous_callfile_timestamp and this was less than six hours ago
+echo Twelve hours past cutoff: $twelve_hours_past_cutoff
+if (( current_unix_epoch_time <= twelve_hours_past_cutoff )); then
+	echo Cutoff was $previous_callfile_timestamp and this was less than twelve hours ago
 	echo You are free! 
 	exit 0
 fi
