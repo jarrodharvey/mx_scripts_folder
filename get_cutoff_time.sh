@@ -11,7 +11,7 @@ then
 	echo Make a plan to catch up with friends/family at some point in the future.
 	echo Once thats done, take the rest of the day/night off - no cutoff tonight.
 	# Evidence that I ran this today
-	date +%s > day_off_token.txt
+	echo $( $date +%s ) > $DIR/day_off_token.txt
 	exit 0
 fi
 

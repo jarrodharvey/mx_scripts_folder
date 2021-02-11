@@ -1,7 +1,12 @@
 #!/bin/bash
 
+echo Script is starting...
+
 # The following should be in the ROOT crontab:
 # */5 * * * 0-6 /bin/bash -c /home/jarrod/scripts/no_pokemon_before_cutoff.sh >/dev/null 2>&1
+
+# Also you should have chomper installed and put this in your personal crontab
+# 30 23 * * 0-4 chomper pokemon 30 >/dev/null 2>&1
 
 # If chromium is not installed, exit script
 if [ $(dpkg-query -W -f='${Status}' chromium 2>/dev/null | grep -c "ok installed") -eq 0 ];
@@ -57,6 +62,8 @@ fi
 tokenvalue=$( cat $DIR/day_off_token.txt )
 tokenvalue=$( date -d @"$tokenvalue" )
 fifteen_hours_after_token=$( date -d "$tokenvalue + 15 hours" '+%s' )
+echo fifteen hours after token: $fifteen_hours_after_token
+echo current unix epoch time: $current_unix_epoch_time
 # So if the current time is 10PM, you will be good still until 7AM
 if (( current_unix_epoch_time <= fifteen_hours_after_token  )); then
 	echo You have the day off!
