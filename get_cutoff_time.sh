@@ -17,7 +17,7 @@ fi
 
 echo What are your current energy levels?
 echo This covers both your emotional AND physical energy.
-echo If you've been drinking socially then pick 2
+echo If you have been drinking socially then pick 2
 echo 1: I am exhausted and could not possibly do more work tonight!
 echo 2: I have less energy than normal.
 echo 3: I feel normal.
