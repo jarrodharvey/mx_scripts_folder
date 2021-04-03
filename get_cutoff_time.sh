@@ -5,8 +5,9 @@ ssh -q root@raspbx.local [[ -f /var/spool/asterisk/outgoing/cutoff.call ]] && ec
 # The script's directory. cutoff.call, the asterisk callfile, MUST be in the same dir as the script.
 DIR=$( cd $( dirname ${BASH_SOURCE[0]} ) >/dev/null 2>&1 && pwd )
 
-# 1 in 10 chance of just getting the day/night off to chill
-if [ $RANDOM -gt 29490 ]
+# 1 in 7 chance of just getting the day/night off to chill
+# This averages out to one day a week
+if [ $RANDOM -gt 28179 ]
 then
 	echo Make a plan to catch up with friends/family at some point in the future.
 	echo Once thats done, take the rest of the day/night off - no cutoff tonight.
