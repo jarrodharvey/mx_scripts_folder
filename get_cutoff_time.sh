@@ -49,8 +49,22 @@ else
 	cutoff=$(date -d "$bedtime today -$seconds_to_remove seconds")
 fi
 
-# If yesterday's cutoff was after 11PM, subtract one hour from tonight's to give yourself a break
-if [[ $( date -d @$( ssh root@raspbx.local stat -c %Y /var/spool/asterisk/outgoing_done/cutoff.call ) '+%s' ) -gt $( date -d "11:00 PM yesterday" '+%s' ) ]] 
+# What is or is not a late night will vary depending on whether
+# I am going in to the office tomorrow and this is determined
+# by what time cutoff was last night
+echo Are you going in to the office tomorrow? (Y/N)
+
+read going_in_to_office 
+
+if [ $going_in_to_office == "N" ]
+then
+	late_night = "11:00 PM"
+else
+	late_night = "9:00 PM"
+fi
+
+# If yesterday's cutoff was a late night, subtract one hour from tonight's to give yourself a break
+if [[ $( date -d @$( ssh root@raspbx.local stat -c %Y /var/spool/asterisk/outgoing_done/cutoff.call ) '+%s' ) -gt $( date -d "$late_night yesterday" '+%s' ) ]] 
 then
 	cutoff=$( date -d "$cutoff - 1 hour" )
 fi
