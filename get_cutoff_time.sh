@@ -52,15 +52,16 @@ fi
 # What is or is not a late night will vary depending on whether
 # I am going in to the office tomorrow and this is determined
 # by what time cutoff was last night
-echo Are you going in to the office tomorrow? (Y/N)
+echo Are you going in to the office tomorrow?
+echo Enter Y or N 
 
 read going_in_to_office 
 
 if [ $going_in_to_office == "N" ]
 then
-	late_night = "11:00 PM"
+	late_night="11:00 PM"
 else
-	late_night = "9:00 PM"
+	late_night="9:00 PM"
 fi
 
 # If yesterday's cutoff was a late night, subtract one hour from tonight's to give yourself a break
