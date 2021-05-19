@@ -74,6 +74,12 @@ fi
 if [ $( date -d "$cutoff" '+%s' ) -lt $( date '+%s' ) ]
 then
 	let minutes_to_work="$energy_level * 25"
+	# I am going REALLY easy on myself if I am going in to the office
+	# tomorrow and subtracting 30 minutes from cutoff potentially
+	if [ $going_in_to_office == "Y" ]
+	then
+		let minutes_to_work="$minutes_to_work - 30"
+	fi
 	cutoff=$(date -d "today + $minutes_to_work minutes")
 fi
 
