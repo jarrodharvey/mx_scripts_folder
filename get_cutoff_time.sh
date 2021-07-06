@@ -59,7 +59,7 @@ read going_in_to_office
 
 if [ $going_in_to_office == "N" ]
 then
-	late_night="11:00 PM"
+	late_night="10:30 PM"
 else
 	late_night="9:00 PM"
 fi
