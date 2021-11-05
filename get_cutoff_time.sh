@@ -5,17 +5,6 @@ ssh -q root@raspbx.local [[ -f /var/spool/asterisk/outgoing/cutoff.call ]] && ec
 # The script's directory. cutoff.call, the asterisk callfile, MUST be in the same dir as the script.
 DIR=$( cd $( dirname ${BASH_SOURCE[0]} ) >/dev/null 2>&1 && pwd )
 
-# 1 in 7 chance of just getting the day/night off to chill
-# This averages out to one day a week
-if [ $RANDOM -gt 28179 ]
-then
-	echo Make a plan to catch up with friends/family at some point in the future.
-	echo Once thats done, take the rest of the day/night off - no cutoff tonight.
-	# Evidence that I ran this today
-	echo $( date "+%s" $date ) > $DIR/day_off_token.txt
-	exit 0
-fi
-
 echo What are your current energy levels?
 echo This covers both your emotional AND physical energy.
 echo If you have been drinking socially then pick 2
@@ -30,6 +19,35 @@ if [ $energy_level = 1 ]
 then
 	echo Whoa! You get the rest of the night off!
 	echo BUUUUUUT since you are really that tired - no Pokemon! Anything else but that.
+	exit 0
+fi
+
+if [ $energy_level = 2 ]
+then
+	# 1 in 5 chance of having the day/night off to chill
+	day_off_chance = 26213	
+fi
+
+if [ $energy_level = 3 ]
+then
+	# 1 in 10 chance of having the day/night off to chill
+	day_off_chance = 29490	
+fi
+
+if [ $energy_level = 4 ]
+then
+	# 1 in 15 chance of having the day/night off to chill
+	day_off_chance = 30582
+fi
+
+# Variable chance of getting the day/night off to chill
+# Likelihood depends on energy levels
+if [ $RANDOM -gt $day_off_chance ]
+then
+	echo Make a plan to catch up with friends/family at some point in the future.
+	echo Once thats done, take the rest of the day/night off - no cutoff tonight.
+	# Evidence that I ran this today
+	echo $( date "+%s" $date ) > $DIR/day_off_token.txt
 	exit 0
 fi
 
