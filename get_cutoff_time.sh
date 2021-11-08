@@ -25,19 +25,19 @@ fi
 if [ $energy_level = 2 ]
 then
 	# 1 in 5 chance of having the day/night off to chill
-	day_off_chance = 26213	
+	day_off_chance=26213	
 fi
 
 if [ $energy_level = 3 ]
 then
 	# 1 in 10 chance of having the day/night off to chill
-	day_off_chance = 29490	
+	day_off_chance=29490	
 fi
 
 if [ $energy_level = 4 ]
 then
 	# 1 in 15 chance of having the day/night off to chill
-	day_off_chance = 30582
+	day_off_chance=30582
 fi
 
 # Variable chance of getting the day/night off to chill
