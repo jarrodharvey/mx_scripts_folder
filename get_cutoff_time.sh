@@ -89,9 +89,9 @@ read going_in_to_office
 
 if [ $going_in_to_office == "N" ]
 then
-	late_night="10:30 PM"
+	late_night="11:00 PM"
 else
-	late_night="9:00 PM"
+	late_night="9:30 PM"
 fi
 
 # If yesterday's cutoff was a late night, subtract one hour from tonight's to give yourself a break
