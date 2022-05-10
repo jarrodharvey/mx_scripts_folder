@@ -12,7 +12,7 @@ if ssh -q root@raspbx.local [[ -f "/var/spool/asterisk/outgoing/cutoff.call" ]];
 fi
 
 # Check if a cutoff.call file already exists in outgoing, if so read the cutoff time and exit the script
-ssh -q root@raspbx.local [[ -f /var/spool/asterisk/outgoing/cutoff.call ]] && echo Cutoff tonight is $( date -d @$( ssh root@raspbx.local stat -c %Y /var/spool/asterisk/outgoing/cutoff.call ) '+%r' ) && exit 0
+ssh -q root@raspbx.local [[ -f /var/spool/asterisk/outgoing/cutoff.call ]] && echo Cutoff tonight is $( date -d @$( ssh root@raspbx.local stat -c %Y /var/spool/asterisk/outgoing/cutoff.call ) '+%r' ) && ssh root@raspbx.local "cat meds_reminder.txt" && exit 0
 
 # The script's directory. cutoff.call, the asterisk callfile, MUST be in the same dir as the script.
 DIR=$( cd $( dirname ${BASH_SOURCE[0]} ) >/dev/null 2>&1 && pwd )
@@ -100,6 +100,26 @@ then
 	cutoff=$( date -d "$cutoff - 1 hour" )
 fi
 
+echo Did you take your ADHD meds today?
+echo Enter Y or N
+
+read took_adhd_meds
+
+if [ $took_adhd_meds == "Y" ]
+then
+	meds_message[0]='Due to your meds giving you extra energy, cutoff has been set at bedtime.'
+	meds_message[1]='Due to your meds giving you extra energy, rewards will be replaced with one episode of Red vs Blue.'
+	
+	random_choice=$[ $RANDOM % 2 ]
+	meds_boosted_action=${meds_message[$random_choice]}	
+else
+	meds_boosted_action='You did not take meds today, so all rewards remain standard with a non-bedtime cutoff.'
+fi
+
+if [[ "$meds_boosted_action" == *"cutoff has been set at bedtime"* ]]; then
+	cutoff=$bedtime
+fi
+
 # I will want to do SOME work today...
 if [ $( date -d "$cutoff" '+%s' ) -lt $( date '+%s' ) ]
 then
@@ -121,3 +141,5 @@ scp -pq $DIR/cutoff.call root@raspbx.local:/tmp/cutoff.call
 ssh root@raspbx.local "mv /tmp/cutoff.call /var/spool/asterisk/outgoing/"
 
 echo Tonight cutoff is $( date -d "$cutoff" '+%r' ) - you will receive a phone call at this time to remind you.
+echo $meds_boosted_action
+ssh root@raspbx.local "echo $meds_boosted_action > meds_reminder.txt"
