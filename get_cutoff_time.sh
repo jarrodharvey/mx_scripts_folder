@@ -108,7 +108,7 @@ read took_adhd_meds
 if [ $took_adhd_meds == "Y" ]
 then
 	meds_message[0]='Due to your meds giving you extra energy, cutoff has been set at bedtime.'
-	meds_message[1]='Due to your meds giving you extra energy, rewards will be replaced with one episode of Red vs Blue.'
+	meds_message[1]='Due to your meds giving you extra energy, rewards will be replaced with one episode of Red vs Blue: https://anneapocalypse.tumblr.com/rvborder'
 	
 	random_choice=$[ $RANDOM % 2 ]
 	meds_boosted_action=${meds_message[$random_choice]}	
