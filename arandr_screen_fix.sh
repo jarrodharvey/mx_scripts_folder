@@ -15,5 +15,6 @@ sleep 10
 nohup devilspie2 --folder ~/scripts/arrange_windows/ > /dev/null 2>&1 &
 sleep 20
 pkill devilspie2
+dropbox start
 cd /home/jarrod/scripts
 git status
