@@ -10,7 +10,8 @@ rm(col_dwca)
 
 taxons <- all_col_data$Taxon.tsv %>%
   select(c("dwc:taxonID", "dwc:taxonRank", "dwc:genericName", "dwc:infragenericEpithet", "dwc:specificEpithet",
-           "dwc:infraspecificEpithet", "dwc:cultivarEpithet", "dwc:taxonRemarks"))
+           "dwc:infraspecificEpithet", "dwc:cultivarEpithet", "dwc:taxonRemarks", "dwc:scientificName",
+           "dwc:scientificNameAuthorship", "dwc:scientificNameID"))
 vernacular_names <- all_col_data$VernacularName.tsv %>%
   filter(`dcterms:language` == "eng") %>%
   select(-c(`dcterms:language`))
