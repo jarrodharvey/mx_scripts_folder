@@ -27,3 +27,4 @@ species_list <- bind_rows(
   distinct() %>%
   arrange(nchar(common.name))
 
+write.csv(species_list, "col_species_list.csv")
