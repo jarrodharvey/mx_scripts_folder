@@ -9,7 +9,11 @@ a = [
 	 "Going forward/backwards",
 	 "Rock step left/right",
 	 "Spin across to dip",
-	 "Rock on the spot rotating"
-
+	 "Rock on the spot rotating",
+	 "Rocks on spot",
+	 "Dirty dancing dip",
+	 "Open out",
+	 "Rope spin",
+	 "Open walks"
 ]
 print(random.choice(a))
