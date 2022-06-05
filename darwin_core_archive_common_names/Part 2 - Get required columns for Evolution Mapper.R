@@ -27,4 +27,5 @@ species_list <- bind_rows(
   distinct() %>%
   arrange(nchar(common.name))
 
-write.csv(species_list, "col_species_list.csv")
+# write.csv(species_list, "col_species_list.csv")
+saveRDS(species_list, "saved_objects/species_list.rds")
