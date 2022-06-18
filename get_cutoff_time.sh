@@ -1,18 +1,25 @@
 #!/bin/bash
 
-# If a cutoff.call file exists in outgoing, identify the timestamp
-if ssh -q root@raspbx.local [[ -f "/var/spool/asterisk/outgoing/cutoff.call" ]]; then
-	last_cutoff_timestamp=$( date -d @$( ssh root@raspbx.local stat -c %Y /var/spool/asterisk/outgoing/cutoff.call ) '+%s' )
-	# If the last cutoff was before 6AM today, AND the current time is AFTER 6AM today...
-	if [[ $last_cutoff_timestamp -lt $( date -d "6AM today" '+%s' ) && $(date '+%s') -gt $( date -d "6AM today" '+%s' ) ]]; then
-		echo Cleaning detritus... please re-run script when done.
-		ssh root@raspbx.local "mv /var/spool/asterisk/outgoing/cutoff.call /var/spool/asterisk/outgoing_done.call" 
-		exit 0
-	fi 
+if [ "$1" = "test" ]
+then
+	echo "============TEST RUN ONLY. THIS RESULT WILL NOT BE ADDED TO THE CALLFILE============"
 fi
 
-# Check if a cutoff.call file already exists in outgoing, if so read the cutoff time and exit the script
-ssh -q root@raspbx.local [[ -f /var/spool/asterisk/outgoing/cutoff.call ]] && echo Cutoff tonight is $( date -d @$( ssh root@raspbx.local stat -c %Y /var/spool/asterisk/outgoing/cutoff.call ) '+%r' ) && ssh root@raspbx.local "cat meds_reminder.txt" && exit 0
+if [ "$1" != "test" ]
+then
+	# If a cutoff.call file exists in outgoing, identify the timestamp
+	if ssh -q root@raspbx.local [[ -f "/var/spool/asterisk/outgoing/cutoff.call" ]]; then
+		last_cutoff_timestamp=$( date -d @$( ssh root@raspbx.local stat -c %Y /var/spool/asterisk/outgoing/cutoff.call ) '+%s' )
+		# If the last cutoff was before 6AM today, AND the current time is AFTER 6AM today...
+		if [[ $last_cutoff_timestamp -lt $( date -d "6AM today" '+%s' ) && $(date '+%s') -gt $( date -d "6AM today" '+%s' ) ]]; then
+			echo Cleaning detritus... please re-run script when done.
+			ssh root@raspbx.local "mv /var/spool/asterisk/outgoing/cutoff.call /var/spool/asterisk/outgoing_done.call" 
+			exit 0
+		fi 
+	fi
+	# Check if a cutoff.call file already exists in outgoing, if so read the cutoff time and exit the script
+	ssh -q root@raspbx.local [[ -f /var/spool/asterisk/outgoing/cutoff.call ]] && echo Cutoff tonight is $( date -d @$( ssh root@raspbx.local stat -c %Y /var/spool/asterisk/outgoing/cutoff.call ) '+%r' ) && ssh root@raspbx.local "cat meds_reminder.txt" && exit 0
+fi
 
 # The script's directory. cutoff.call, the asterisk callfile, MUST be in the same dir as the script.
 DIR=$( cd $( dirname ${BASH_SOURCE[0]} ) >/dev/null 2>&1 && pwd )
@@ -72,6 +79,7 @@ if [ $alarm_time == "N" ]
 then
 	seconds_to_remove=$(($RANDOM * 2 / $energy_level))
 	cutoff=$(date -d "10:00 PM today + $energy_level hours -$seconds_to_remove seconds")
+	bedtime=$(date -d "10:00 PM today + $energy_level hours")
 else
 	let bedtime_modifier="($energy_level - 2) * 30" 
 	bedtime=$(date -d "$alarm_time tomorrow -9 hours + $bedtime_modifier minutes")	
@@ -133,6 +141,15 @@ then
 	cutoff=$(date -d "today + $minutes_to_work minutes")
 fi
 
+if [ "$1" = "test" ]
+then
+	echo "This concludes the test run."
+	echo "Bedime was set at: $bedtime."
+	echo "If this was a real run your cutoff time would have been: $cutoff."
+	echo "Your message would have been: $meds_boosted_action"
+	echo "The random number to generate your message was: $random_choice."
+	exit 0
+fi
 
 # Modified time in asterisk is the time that the call gets made
 touch -d "$cutoff" $DIR/cutoff.call
