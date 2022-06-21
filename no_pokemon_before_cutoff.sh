@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ "$1" = "test" ]
+then
+        echo "============TEST RUN ONLY. CHROMIUM WILL NOT BE DELETED.============"
+fi
+
 echo Script is starting...
 
 # The following should be in the ROOT crontab:
