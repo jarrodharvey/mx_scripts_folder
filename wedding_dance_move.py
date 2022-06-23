@@ -3,7 +3,6 @@ a = [
 	 "Box step",
 	 "Box with turn",
 	 "Lean",
-	 "Dip",
 	 "Turning across each other and crossing over",
 	 "Wrap around/parallel walks",
 	 "Going forward/backwards",
@@ -14,6 +13,8 @@ a = [
 	 "Dirty dancing dip",
 	 "Open out",
 	 "Rope spin",
-	 "Open walks"
+	 "Dip",
+	 "Open walks going around the floor"
+	 "Opening out on opposite sides"
 ]
 print(random.choice(a))
