@@ -7,7 +7,7 @@ killall wmalauncher
 echo fix arandr primary monitor and close arandr to continue
 arandr
 fluxbox-remote restart
-nohup flatpak run com.getferdi.Ferdi > /dev/null 2>&1 &
+nohup flatpak run org.ferdium.Ferdium > /dev/null 2>&1 &
 nohup xargs -a ~/scripts/ff_start_tabs_right_monitor.txt firefox --new-window "$line" > /dev/null 2>&1 &
 nohup firefox --new-window https://app.simplenote.com/ > /dev/null 2>&1 &
 nohup thunderbird > /dev/null 2>&1 &
