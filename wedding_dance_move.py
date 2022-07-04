@@ -10,7 +10,6 @@ a = [
 	 "Spin across to dip",
 	 "Rock on the spot rotating",
 	 "Rocks on spot",
-	 "Dirty dancing dip",
 	 "Open out",
 	 "Rope spin",
 	 "Dip",
