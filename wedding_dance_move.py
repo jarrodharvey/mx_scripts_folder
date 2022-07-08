@@ -13,7 +13,7 @@ a = [
 	 "Open out",
 	 "Rope spin",
 	 "Dip",
-	 "Open walks going around the floor"
+	 "Open walks going around the floor",
 	 "Opening out on opposite sides",
 	 "Lift with turn",
 	 "Parallel rocks going forwards and backwards",
